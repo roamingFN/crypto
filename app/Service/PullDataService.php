@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use GuzzleHttp\Client;
+use DB;
 
 class PullDataService 
 {
@@ -23,5 +24,20 @@ class PullDataService
         $res = $this->client->request('GET', 'https://api.coinmarketcap.com/v1/ticker/?limit='.self::LIMIT);
     
         return $res->getBody();
+    }
+
+    public function each ($coins)
+    {
+        foreach ($coins as $coin) {
+            $res = $this->client->request('GET', 'https://api.coinmarketcap.com/v1/ticker/'.$coin->name);
+            $data[] = json_decode($res->getBody(), true);
+        }
+
+        return $data;
+    }
+
+    public function getCoins ()
+    {
+        return DB::table('coins')->get();
     }
 }

@@ -35,10 +35,15 @@ class Kernel extends ConsoleKernel
             $storeDataService = app(StoreDataService::class);
             $formatterService = app(FormatterService::class);
 
-            //pull data
-            $coinsJson = $pullDataService->all();
-            $coinsArray = $formatterService->jsonToArray($coinsJson);
+            //get coins
+            $coins = $pullDataService->getCoins();
 
+            $coinsArray = $pullDataService->each($coins);
+
+            //pull data
+            //$coinsJson = $pullDataService->all();
+            //$coinsArray = $formatterService->jsonToArray($coinsJson);
+            
             //store data
             foreach ($coinsArray as $coin) {
                 $storeDataService->store($coin);

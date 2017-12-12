@@ -10,12 +10,12 @@ class StoreDataService
     public function store ($coin)
     {
         // get coin id
-        $id = $this->getCoinId($coin['symbol']);
+        $id = $this->getCoinId($coin[0]['symbol']);
 
         // store into database
         DB::table('prices')->insert([
             'coin_id' => $id,
-            'price' => $coin['price_usd'],
+            'price' => $coin[0]['price_usd'],
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
