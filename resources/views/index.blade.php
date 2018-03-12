@@ -7,15 +7,17 @@
 
     <body>
         <div style="width:500px;">
-            <canvas id="myChart" width="1600" height="400"></canvas>
+            <canvas id="myChart" width="1600" height="800"></canvas>
         </div>
     </body>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
     <script>
         var data = {!! json_encode($data) !!};
+        var dateArray = [];
         var priceArray = [];
         for (var key in data) {
+            dateArray.push(data[key]['updated_at']);
             priceArray.push(data[key]['price']);
         };
 
@@ -23,12 +25,11 @@
         var myLineChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['1', '2', '3', '4', '5'],
+                labels: dateArray,
                 datasets: [
                     {
                         label: "OmiseGo",
-                        data: priceArray,
-                        borderColor: "red"
+                        data: priceArray
                     }
                 ]
             },
