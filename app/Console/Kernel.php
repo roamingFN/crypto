@@ -38,11 +38,8 @@ class Kernel extends ConsoleKernel
             //get coins
             $coins = $pullDataService->getCoins();
 
-            $coinsArray = $pullDataService->each($coins);
-
             //pull data
-            //$coinsJson = $pullDataService->all();
-            //$coinsArray = $formatterService->jsonToArray($coinsJson);
+            $coinsArray = $pullDataService->each($coins);
             
             //store data
             foreach ($coinsArray as $coin) {
